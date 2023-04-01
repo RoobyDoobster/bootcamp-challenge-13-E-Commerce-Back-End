@@ -7,35 +7,31 @@ router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
   try {
-    const data = await Category.findAll({
-      include: { model: Product },
-    });
-    if(!data) {
-      res.status(404).json({message: 'No Category with this id'});
-      return;
-    }
-    res.status(200).json(data);
-  } catch(error) {
-    res.status(500).json(error);
-  }
+		const data = await Category.findAll({
+			include: { model: Product },
+		});
+		if (!data) {
+			res.status(404).json({ message: 'No Category with this id!' });
+			return;
+		}
+		res.status(200).json(data);
+	} catch (error) {
+		res.status(500).json(error);
+	}
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
-  try {
-    const data = await Category.findById(req.params.id, {
-      include: {model: Product },
-    });
-    if(!data) {
-      res.status(404).json({ message: 'No Category with this id'});
-      return;
-    }
-    res.status(200).json(data);
-  } catch(error) {
-    res.status(500).json(error);
-  }
-});
+  Category.findOne({
+      where: {
+        id: req.params.id,
+      },
+      include: [Product],
+    })
+    .then((category) => res.json(category))
+    .catch((err) => res.status(400).json(err));
+  });
 
 router.post('/', async (req, res) => {
   // create a new category

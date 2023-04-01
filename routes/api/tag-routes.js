@@ -8,8 +8,8 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Product data
   try {
     const data = await Tag.findAll({
-      include: { model: Product },
-    });
+      include: [{ model: Product, through: ProductTag, }],
+    })
     if(!data) {
       res.status(404).json({message: 'No Product with this id'});
       return;
