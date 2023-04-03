@@ -14,7 +14,7 @@ Run with npm start, and test your routes using insomnia.
 
 ## Authors
 
-Reuben Schmolke [Github] (https://github.com/RoobyDoobster)
+Reuben Schmolke [Github](https://github.com/RoobyDoobster)
 
 ## License
 
